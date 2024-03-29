@@ -118,3 +118,13 @@ class Scale:
             self._chords.append(
                 Chord(index=_index, notes=[root_note, third_note, fifth_note], chord_type=self.chord_types[_index])
             )
+
+    def print_chord_progression(self, progression: List[int]) -> None:
+        """
+        Print a chord progression from a specified list of chord indices.
+
+        Parameters:
+            progression (List[int]): List of chord indices i.e. [1, 4, 5, 1]
+        """
+        for _index in progression:
+            print(self._chords[_index - 1])
