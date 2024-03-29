@@ -24,7 +24,7 @@ class Chord:
     def __str__(self) -> str:
         _notes_str = " ".join(self._notes)
         _chord_str = f"({self._notes[0]:<1} {self._type:<1})"
-        _label_str = f"{self.label:<12} -> {self.next_chord}"
+        _label_str = f"{self.label:<12} ({self.secondary_label})  \t -> {self.next_chord:>1}"
         return f"{self.chord_index:<4}: {_notes_str:<8} {_chord_str} \t- {_label_str}"
 
     @property
@@ -50,9 +50,9 @@ class Chord:
     def next_chord(self) -> str:
         _next_chord = ""
         if self.secondary_label == "Tonic":
-            _next_chord = "Can move anywhere"
+            _next_chord = "Tonic | Dominant | Predominant"
         elif self.secondary_label == "Predominant":
-            _next_chord = "Resolves into dominant, tonic or predominant"
+            _next_chord = "Dominant | Tonic | Predominant"
         elif self.secondary_label == "Dominant":
-            _next_chord = "Resolves into tonic"
+            _next_chord = "Tonic"
         return _next_chord
