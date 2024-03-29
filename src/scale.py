@@ -5,6 +5,17 @@ from typing import List
 from src.chord import Chord
 
 
+def create_msg(header: str, msg: str) -> None:
+    """
+    Create a message to print to terminal.
+
+    Parameters:
+        header (str): Message header
+        msg (str): Message to print
+    """
+    return f"=== {header} ===\n{msg}"
+
+
 class Scale:
     NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     STEP_SIZES = [2, 2, 1, 2, 2, 2, 1]
@@ -31,7 +42,7 @@ class Scale:
         """
         _header = f"{self.root_note} {self.mode_name}:"
         _chords_formatted = "\n".join(f"{chord}" for chord in self._chords)
-        return f"{_header}\n\n{_chords_formatted}"
+        return create_msg(_header, _chords_formatted)
 
     @property
     def root_note(self) -> str:
@@ -126,5 +137,7 @@ class Scale:
         Parameters:
             progression (List[int]): List of chord indices i.e. [1, 4, 5, 1]
         """
+        _chord_strs = []
         for _index in progression:
-            print(self._chords[_index - 1])
+            _chord_strs.append(str(self._chords[_index - 1]))
+        print(create_msg("Chord Progression", "\n".join(_chord_strs)))

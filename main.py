@@ -12,4 +12,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     scale = Scale.from_note(start_note=args.start_note, mode=args.mode)
+    print(scale)
     scale.print_chord_progression(progression=args.progression)
