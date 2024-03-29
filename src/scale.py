@@ -27,8 +27,8 @@ class Scale:
         Print scale information.
         """
         _header = f"{self.root_note} {self.mode_name}:"
-        _chords = [f"{self._scale_notes[index]} {self.chords[index]}" for index in range(len(self._scale_notes))]
-        _chords_formatted = "\n".join(_chords)
+        _chord_labels = zip(self._scale_notes, self.chords)
+        _chords_formatted = "\n".join(f"{item[0]} {item[1]}" for item in _chord_labels)
         return f"{_header}\n\n{_chords_formatted}"
 
     @property
