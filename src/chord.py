@@ -9,6 +9,14 @@ class Chord:
     SECONDARY_LABELS = ["Tonic", "Predominant", "Tonic", "Predominant", "Dominant", "Tonic", "Dominant"]
 
     def __init__(self, index: int, notes: List[str], chord_type: str) -> None:
+        """
+        Initialise Chord with index, chord notes and chord type.
+
+        Parameters:
+            index (int): Position of chord
+            notes (List[str]): List of notes in chord
+            chord_type (str): Chord type ['Major', 'Minor', 'Diminished']
+        """
         self._index = index
         self._notes = notes
         self._type = chord_type

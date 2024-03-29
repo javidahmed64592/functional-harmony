@@ -106,6 +106,9 @@ class Scale:
         self._scale_notes = [self.NOTES[pos] for pos in _step_list]
 
     def _generate_chords(self) -> None:
+        """
+        Generate chords in scale.
+        """
         self._chords = []
         _num_notes = len(self._scale_notes)
         for _index in range(_num_notes):
