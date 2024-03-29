@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
+from src.chord import Chord
+
 
 class Scale:
     NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -21,14 +23,14 @@ class Scale:
         self._mode = mode
         self._scale_notes: List[str]
         self._step_sizes: List[int]
+        self._chords: List[Chord]
 
     def __str__(self) -> str:
         """
         Print scale information.
         """
         _header = f"{self.root_note} {self.mode_name}:"
-        _chord_labels = zip(self._scale_notes, self.chords)
-        _chords_formatted = "\n".join(f"{item[0]} {item[1]}" for item in _chord_labels)
+        _chords_formatted = "\n".join(f"{chord}" for chord in self._chords)
         return f"{_header}\n\n{_chords_formatted}"
 
     @property
@@ -40,7 +42,7 @@ class Scale:
         return self.MODES[self._mode - 1]
 
     @property
-    def chords(self) -> List[str]:
+    def chord_types(self) -> List[str]:
         _n = self._mode - 1
         return self.CHORDS[_n:] + self.CHORDS[:_n]
 
@@ -66,6 +68,7 @@ class Scale:
         scale = cls(start_pos, mode)
         scale._generate_scale_steps()
         scale._generate_scale_notes()
+        scale._generate_chords()
         return scale
 
     @classmethod
@@ -101,3 +104,14 @@ class Scale:
         """
         _step_list = [(self._start_pos + step) % len(self.NOTES) for step in self._scale_steps]
         self._scale_notes = [self.NOTES[pos] for pos in _step_list]
+
+    def _generate_chords(self) -> None:
+        self._chords = []
+        _num_notes = len(self._scale_notes)
+        for _index in range(_num_notes):
+            root_note = self._scale_notes[_index % _num_notes]
+            third_note = self._scale_notes[(_index + 2) % _num_notes]
+            fifth_note = self._scale_notes[(_index + 4) % _num_notes]
+            self._chords.append(
+                Chord(index=_index, notes=[root_note, third_note, fifth_note], chord_type=self.chord_types[_index])
+            )
