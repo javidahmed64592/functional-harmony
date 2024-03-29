@@ -7,6 +7,7 @@ class Scale:
     NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     STEP_SIZES = [2, 2, 1, 2, 2, 2, 1]
     MODES = ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]
+    CHORDS = ["Major", "Minor", "Minor", "Major", "Major", "Minor", "Diminished"]
 
     def __init__(self, start_pos: int, mode: int) -> None:
         """
@@ -26,7 +27,9 @@ class Scale:
         Print scale information.
         """
         _header = f"{self.root_note} {self.mode_name}:"
-        return f"{_header}\n{', '.join(self._scale_notes)}"
+        _chords = [f"{self._scale_notes[index]} {self.chords[index]}" for index in range(len(self._scale_notes))]
+        _chords_formatted = "\n".join(_chords)
+        return f"{_header}\n\n{_chords_formatted}"
 
     @property
     def root_note(self) -> str:
@@ -35,6 +38,11 @@ class Scale:
     @property
     def mode_name(self) -> str:
         return self.MODES[self._mode - 1]
+
+    @property
+    def chords(self) -> List[str]:
+        _n = self._mode - 1
+        return self.CHORDS[_n:] + self.CHORDS[:_n]
 
     @classmethod
     def generate_scale(cls, start_pos: int, mode: int) -> Scale:
