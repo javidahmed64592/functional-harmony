@@ -5,6 +5,8 @@ from typing import List
 
 class Chord:
     INDICES = ["I", "II", "III", "IV", "V", "VI", "VII"]
+    LABELS = ["Tonic", "Supertonic", "Mediant", "Subdominant", "Dominant", "Submediant", "Leading Tone"]
+    SECONDARY_LABELS = ["Tonic", "Predominant", "Tonic", "Predominant", "Dominant", "Tonic", "Dominant"]
 
     def __init__(self, index: int, notes: List[str], chord_type: str) -> None:
         self._index = index
@@ -13,7 +15,7 @@ class Chord:
 
     def __str__(self) -> str:
         _notes_str = " ".join(self._notes)
-        return f"{self.chord_index}: \t{_notes_str}  \t({self._notes[0]} {self._type})"
+        return f"{self.chord_index:<4}: {_notes_str:<8} ({self._notes[0]:<1} {self._type:<1}) \t- {self.label:<12} -> {self.next_chord}"
 
     @property
     def chord_index(self) -> str:
@@ -25,3 +27,20 @@ class Chord:
         elif self._type == "Diminished":
             _chord_index = self.INDICES[self._index].lower() + "°"
         return _chord_index
+
+    @property
+    def label(self) -> str:
+        return self.LABELS[self._index]
+
+    @property
+    def secondary_label(self) -> str:
+        return self.SECONDARY_LABELS[self._index]
+
+    @property
+    def next_chord(self) -> str:
+        if self.secondary_label == "Tonic":
+            return "Can move anywhere"
+        elif self.secondary_label == "Predominant":
+            return "Resolves into dominant, tonic or predominant"
+        elif self.secondary_label == "Dominant":
+            return "Resolves into tonic"
