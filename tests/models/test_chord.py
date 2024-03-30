@@ -21,10 +21,10 @@ class TestChord:
     def test_given_scale_chords_when_creating_label_then_check_chord_has_correct_labels(self, chord_class):
         test_chords = [["E", "G#", "B"], ["A", "C", "E"], ["D", "F", "G#"]]
         test_indices = [1, 4, 5]
-        expected_label = ["Supertonic", "Dominant", "Submediant"]
-        expected__secondary_label = ["Predominant", "Dominant", "Tonic"]
+        expected_labels = ["Supertonic", "Dominant", "Submediant"]
+        expected__secondary_labels = ["Predominant", "Dominant", "Tonic"]
 
-        zipped_list = zip(test_chords, test_indices, expected_label, expected__secondary_label)
+        zipped_list = zip(test_chords, test_indices, expected_labels, expected__secondary_labels)
         for chord, index, expected_label, expected_secondary_label in zipped_list:
             test_chord = chord_class.scale_chord(index=index, notes=chord)
             assert test_chord.label == expected_label
