@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from src.helpers.general import create_msg, load_config
 from src.models.chord import Chord
@@ -91,3 +91,12 @@ class FHWrapper:
         Scale.NOTES = self.config["notes"]
         Scale.STEP_SIZES = self.config["scale_steps"]
         Scale.MODES = self.config["scale_modes"]
+
+    def print_chord_progression(self, progression: List[int]) -> None:
+        """
+        Print a chord progression from a specified list of chord indices.
+
+        Parameters:
+            progression (List[int]): List of chord indices i.e. [1, 4, 5, 1]
+        """
+        print(create_msg(header="Chord Progression", msg=self._scale.create_chord_progression(progression=progression)))

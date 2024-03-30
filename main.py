@@ -14,3 +14,4 @@ if __name__ == "__main__":
     fh_wrapper = FHWrapper.create_scale(
         config_filepath="config/music_data.json", start_note=args.start_note, mode=args.mode
     )
+    fh_wrapper.print_chord_progression(args.progression)
