@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from src.chord import Chord
+from src.models.chord import Chord
 
 
 def create_msg(header: str, msg: str) -> None:

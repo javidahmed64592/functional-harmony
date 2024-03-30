@@ -1,4 +1,4 @@
-from src.scale import Scale
+from src.models.scale import Scale
 
 
 class TestScale:

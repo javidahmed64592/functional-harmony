@@ -1,6 +1,6 @@
 import argparse
 
-from src.scale import Scale
+from src.models.scale import Scale
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Musical Scale Tool")
