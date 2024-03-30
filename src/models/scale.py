@@ -5,17 +5,6 @@ from typing import List
 from src.models.chord import Chord
 
 
-def create_msg(header: str, msg: str) -> None:
-    """
-    Create a message to print to terminal.
-
-    Parameters:
-        header (str): Message header
-        msg (str): Message to print
-    """
-    return f"=== {header} ===\n{msg}"
-
-
 class Scale:
     NOTES: List[str]
     STEP_SIZES: List[int]
@@ -35,13 +24,13 @@ class Scale:
         self._step_sizes: List[int]
         self._chords: List[Chord]
 
-    def __str__(self) -> str:
-        """
-        Print scale information.
-        """
-        _header = f"{self.root_note} {self.mode_name}:"
-        _chords_formatted = "\n".join(f"{chord}" for chord in self._chords)
-        return create_msg(_header, _chords_formatted)
+    @property
+    def scale_info(self) -> str:
+        return f"{self.root_note} {self.mode_name}"
+
+    @property
+    def chord_info(self) -> str:
+        return "\n".join(f"{chord}" for chord in self._chords)
 
     @property
     def root_note(self) -> str:
@@ -122,14 +111,18 @@ class Scale:
             fifth_note = self._scale_notes[(_index + 4) % _num_notes]
             self._chords.append(Chord.scale_chord(index=_index, notes=[root_note, third_note, fifth_note]))
 
-    def print_chord_progression(self, progression: List[int]) -> None:
+    def create_chord_progression(self, progression: List[int]) -> str:
         """
-        Print a chord progression from a specified list of chord indices.
+        Create a chord progression from a specified list of chord indices.
 
         Parameters:
             progression (List[int]): List of chord indices i.e. [1, 4, 5, 1]
+
+        Returns:
+            chord_progression (str): Chord progression using scale chords
         """
         _chord_strs = []
         for _index in progression:
             _chord_strs.append(str(self._chords[_index - 1]))
-        print(create_msg("Chord Progression", "\n".join(_chord_strs)))
+        chord_progression = "\n".join(_chord_strs)
+        return chord_progression
