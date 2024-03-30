@@ -24,7 +24,7 @@ class Chord:
         _notes_str = " ".join(self._notes)
         _chord_str = f"({self._notes[0]:<1} {self.type:<1})"
         _label_str = f"{self.label:<12} ({self.secondary_label})  \t -> {self.next_chord:>1}"
-        return f"{self.chord_index:<4}: {_notes_str:<8} {_chord_str} \t- {_label_str}"
+        return f"{self.chord_index:>4}: {_notes_str:<8} {_chord_str} \t- {_label_str}"
 
     @property
     def type(self) -> str:

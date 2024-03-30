@@ -29,6 +29,10 @@ class Scale:
         return f"{self.root_note} {self.mode_name}"
 
     @property
+    def note_info(self) -> str:
+        return " ".join(f"{note}" for note in self.notes)
+
+    @property
     def chord_info(self) -> str:
         return "\n".join(f"{chord}" for chord in self.chords)
 

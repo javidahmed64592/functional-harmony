@@ -51,7 +51,7 @@ class FHWrapper:
         """
         wrapper = cls.initialise(config_filepath)
         wrapper._scale = Scale.from_note(start_note=start_note, mode=mode)
-        print(create_msg(header="Scale Info", msg=wrapper._scale.scale_info))
+        print(create_msg(header="Scale Info", msg=f"{wrapper._scale.scale_info} - {wrapper._scale.note_info}"))
         print(create_msg(header="Scale Chords", msg=wrapper._scale.chord_info))
         return wrapper
 
