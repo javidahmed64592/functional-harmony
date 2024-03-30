@@ -1,40 +1,49 @@
 from __future__ import annotations
 
-from typing import List
+from typing import Dict, List
 
 
 class Chord:
+    NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     INDICES = ["I", "II", "III", "IV", "V", "VI", "VII"]
     LABELS = ["Tonic", "Supertonic", "Mediant", "Subdominant", "Dominant", "Submediant", "Leading Tone"]
     SECONDARY_LABELS = ["Tonic", "Predominant", "Tonic", "Predominant", "Dominant", "Tonic", "Dominant"]
+    CHORD_PROFILES: Dict[str, List[int]] = {"Major": [0, 4, 7], "Minor": [0, 3, 7], "Diminished": [0, 3, 6]}
 
-    def __init__(self, index: int, notes: List[str], chord_type: str) -> None:
+    def __init__(self, notes: List[str]) -> None:
         """
         Initialise Chord with index, chord notes and chord type.
 
         Parameters:
-            index (int): Position of chord
             notes (List[str]): List of notes in chord
-            chord_type (str): Chord type ['Major', 'Minor', 'Diminished']
         """
-        self._index = index
         self._notes = notes
-        self._type = chord_type
+        self._index: int
 
     def __str__(self) -> str:
         _notes_str = " ".join(self._notes)
-        _chord_str = f"({self._notes[0]:<1} {self._type:<1})"
+        _chord_str = f"({self._notes[0]:<1} {self.type:<1})"
         _label_str = f"{self.label:<12} ({self.secondary_label})  \t -> {self.next_chord:>1}"
         return f"{self.chord_index:<4}: {_notes_str:<8} {_chord_str} \t- {_label_str}"
 
     @property
+    def type(self) -> str:
+        _n = self.NOTES.index(self._notes[0])
+        _notes = self.NOTES[_n:] + self.NOTES[:_n]
+        _note_pos = [_notes.index(note) for note in self._notes]
+        for chord_type, chord_profile in self.CHORD_PROFILES.items():
+            if _note_pos == chord_profile:
+                return chord_type
+        return "Unknown"
+
+    @property
     def chord_index(self) -> str:
         _chord_index = ""
-        if self._type == "Major":
+        if self.type == "Major":
             _chord_index = self.INDICES[self._index]
-        elif self._type == "Minor":
+        elif self.type == "Minor":
             _chord_index = self.INDICES[self._index].lower()
-        elif self._type == "Diminished":
+        elif self.type == "Diminished":
             _chord_index = self.INDICES[self._index].lower() + "°"
         return _chord_index
 
@@ -56,3 +65,19 @@ class Chord:
         elif self.secondary_label == "Dominant":
             _next_chord = "Tonic"
         return _next_chord
+
+    @classmethod
+    def scale_chord(cls, index: int, notes: List[str]) -> Chord:
+        """
+        Create a chord with position in scale.
+
+        Parameters:
+            index (int): Position in scale
+            notes (List[str]): Notes in chord
+
+        Returns:
+            chord (Chord): Chord with assigned index
+        """
+        chord = cls(notes)
+        chord._index = index
+        return chord

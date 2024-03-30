@@ -20,7 +20,6 @@ class Scale:
     NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     STEP_SIZES = [2, 2, 1, 2, 2, 2, 1]
     MODES = ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]
-    CHORDS = ["Major", "Minor", "Minor", "Major", "Major", "Minor", "Diminished"]
 
     def __init__(self, start_pos: int, mode: int) -> None:
         """
@@ -51,11 +50,6 @@ class Scale:
     @property
     def mode_name(self) -> str:
         return self.MODES[self._mode - 1]
-
-    @property
-    def chord_types(self) -> List[str]:
-        _n = self._mode - 1
-        return self.CHORDS[_n:] + self.CHORDS[:_n]
 
     @classmethod
     def generate_scale(cls, start_pos: int, mode: int) -> Scale:
@@ -126,9 +120,7 @@ class Scale:
             root_note = self._scale_notes[_index % _num_notes]
             third_note = self._scale_notes[(_index + 2) % _num_notes]
             fifth_note = self._scale_notes[(_index + 4) % _num_notes]
-            self._chords.append(
-                Chord(index=_index, notes=[root_note, third_note, fifth_note], chord_type=self.chord_types[_index])
-            )
+            self._chords.append(Chord.scale_chord(index=_index, notes=[root_note, third_note, fifth_note]))
 
     def print_chord_progression(self, progression: List[int]) -> None:
         """

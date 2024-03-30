@@ -19,4 +19,4 @@ class TestScale:
         test_scale = Scale.from_note(start_note="E", mode=5)
         expected_chord_types = ["Major", "Minor", "Diminished", "Major", "Minor", "Minor", "Major"]
         for chord, expected_chord in zip(test_scale._chords, expected_chord_types):
-            assert chord._type == expected_chord
+            assert chord.type == expected_chord
