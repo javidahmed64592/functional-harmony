@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-
+pytest = "*"
 
 [dev-packages]
 isort = "*"
@@ -14,3 +14,6 @@ mypy = "*"
 
 [requires]
 python_version = "3.11"
+
+[scripts]
+test = "python -m pytest -vx"
