@@ -20,7 +20,7 @@ def config() -> Dict[str, Any]:
 
 
 @pytest.fixture
-def chord_class(config) -> Chord:
+def chord_class(config: Dict[str, Any]) -> type[Chord]:
     chord = Chord
     chord.NOTES = config["notes"]
     chord.INDICES = config["chord_indices"]
@@ -31,7 +31,7 @@ def chord_class(config) -> Chord:
 
 
 @pytest.fixture
-def scale_class(config) -> Scale:
+def scale_class(config: Dict[str, Any]) -> type[Scale]:
     scale = Scale
     scale.NOTES = config["notes"]
     scale.STEP_SIZES = config["scale_steps"]
