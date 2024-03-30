@@ -17,9 +17,9 @@ def create_msg(header: str, msg: str) -> None:
 
 
 class Scale:
-    NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-    STEP_SIZES = [2, 2, 1, 2, 2, 2, 1]
-    MODES = ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]
+    NOTES: List[str]
+    STEP_SIZES: List[int]
+    MODES: List[str]
 
     def __init__(self, start_pos: int, mode: int) -> None:
         """

@@ -4,11 +4,11 @@ from typing import Dict, List
 
 
 class Chord:
-    NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-    INDICES = ["I", "II", "III", "IV", "V", "VI", "VII"]
-    LABELS = ["Tonic", "Supertonic", "Mediant", "Subdominant", "Dominant", "Submediant", "Leading Tone"]
-    SECONDARY_LABELS = ["Tonic", "Predominant", "Tonic", "Predominant", "Dominant", "Tonic", "Dominant"]
-    CHORD_PROFILES: Dict[str, List[int]] = {"Major": [0, 4, 7], "Minor": [0, 3, 7], "Diminished": [0, 3, 6]}
+    NOTES: List[str]
+    INDICES: List[str]
+    LABELS: List[str]
+    SECONDARY_LABELS: List[str]
+    CHORD_TYPES: Dict[str, List[int]]
 
     def __init__(self, notes: List[str]) -> None:
         """
@@ -31,7 +31,7 @@ class Chord:
         _n = self.NOTES.index(self._notes[0])
         _notes = self.NOTES[_n:] + self.NOTES[:_n]
         _note_pos = [_notes.index(note) for note in self._notes]
-        for chord_type, chord_profile in self.CHORD_PROFILES.items():
+        for chord_type, chord_profile in self.CHORD_TYPES.items():
             if _note_pos == chord_profile:
                 return chord_type
         return "Unknown"
