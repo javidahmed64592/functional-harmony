@@ -1,6 +1,6 @@
 import argparse
 
-from src.models.scale import Scale
+from src.fh_wrapper import FHWrapper
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Musical Scale Tool")
@@ -11,6 +11,6 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    scale = Scale.from_note(start_note=args.start_note, mode=args.mode)
-    print(scale)
-    scale.print_chord_progression(progression=args.progression)
+    fh_wrapper = FHWrapper.create_scale(
+        config_filepath="config/music_data.json", start_note=args.start_note, mode=args.mode
+    )
