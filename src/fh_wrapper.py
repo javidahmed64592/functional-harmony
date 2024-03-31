@@ -36,25 +36,6 @@ class FHWrapper:
         wrapper._initialise_scale()
         return wrapper
 
-    @classmethod
-    def create_scale(cls, config_filepath: str, start_note: str, mode: int) -> FHWrapper:
-        """
-        Create a scale using a root note and scale mode.
-
-        Parameters:
-            config_filepath (str): Path to config file
-            start_note (str): Root note of scale
-            mode (int): Scale mode
-
-        Returns:
-            wrapper (FHWrapper): Wrapper with Scale created
-        """
-        wrapper = cls.initialise(config_filepath)
-        wrapper._scale = Scale.from_note(start_note=start_note, mode=mode)
-        print(create_msg(header="Scale Info", msg=f"{wrapper._scale.scale_info} - {wrapper._scale.note_info}"))
-        print(create_msg(header="Scale Chords", msg=wrapper._scale.chord_info))
-        return wrapper
-
     @property
     def config(self):
         if not self._config:
@@ -92,6 +73,18 @@ class FHWrapper:
         Scale.STEP_SIZES = self.config["scale_steps"]
         Scale.MODES = self.config["scale_modes"]
 
+    def create_scale(self, start_note: str, mode: int) -> None:
+        """
+        Create a scale using a root note and scale mode.
+
+        Parameters:
+            start_note (str): Root note of scale
+            mode (int): Scale mode
+        """
+        self._scale = Scale.from_note(start_note=start_note, mode=mode)
+        print(create_msg(header="Scale Info", msg=f"{self._scale.scale_info} - {self._scale.note_info}"))
+        print(create_msg(header="Scale Chords", msg=self._scale.chord_info))
+
     def print_chord_progression(self, progression: List[int]) -> None:
         """
         Print a chord progression from a specified list of chord indices.
@@ -100,3 +93,15 @@ class FHWrapper:
             progression (List[int]): List of chord indices i.e. [1, 4, 5, 1]
         """
         print(create_msg(header="Chord Progression", msg=self._scale.create_chord_progression(progression=progression)))
+
+    def identify_chord(self, notes: List[str]) -> None:
+        """
+        Identify a chord from a set of notes.
+
+        Parameters:
+            notes (List[str]): List of notes in chord
+        """
+        self._chord = Chord(notes)
+        print(
+            create_msg(header="Chord Identification", msg=f"Chord: {self._chord.notes_str}\nType: {self._chord.type}")
+        )
