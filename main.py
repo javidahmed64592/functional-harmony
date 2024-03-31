@@ -26,7 +26,7 @@ if __name__ == "__main__":
     parser.add_argument("--mode", type=int, help="Scale mode (1-7)")
     parser.add_argument("--progression", type=int, nargs="*", help="Chord progression i.e. 1 4 5 1")
 
-    parser.add_argument("-chord", action="store_true", help="Extract a message from an image")
+    parser.add_argument("-chord", action="store_true", help="Use chord tools")
     parser.add_argument("--identify_chord", type=str, nargs="*", help="Notes in chord")
 
     args = parser.parse_args()
