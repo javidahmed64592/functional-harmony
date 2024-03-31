@@ -17,3 +17,6 @@ python_version = "3.11"
 
 [scripts]
 test = "python -m pytest -vx"
+print_scale = "python main.py -scale"
+print_progression = "python main.py -scale --progression"
+identify_chord = "python main.py -chord --identify_chord"
