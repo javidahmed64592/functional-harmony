@@ -21,10 +21,19 @@ class Chord:
         self._index: int
 
     def __str__(self) -> str:
-        _notes_str = " ".join(self._notes)
-        _chord_str = f"({self._notes[0]:<1} {self.type:<1})"
-        _label_str = f"{self.label:<12} ({self.secondary_label})  \t -> {self.next_chord:>1}"
-        return f"{self.chord_index:>4}: {_notes_str:<8} {_chord_str} \t- {_label_str}"
+        return f"{self.chord_index:>4}: {self.notes_str:<8} {self.chord_str} \t- {self.label_str}"
+
+    @property
+    def notes_str(self):
+        return " ".join(self._notes)
+
+    @property
+    def chord_str(self):
+        return f"({self._notes[0]:<1} {self.type:<1})"
+
+    @property
+    def label_str(self):
+        return f"{self.label:<12} ({self.secondary_label})  \t -> {self.next_chord:>1}"
 
     @property
     def type(self) -> str:
